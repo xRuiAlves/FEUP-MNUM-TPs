@@ -1,0 +1,18 @@
+/*           Metodo da Iteracao           */
+/*         Rui Alves , 30-10-2017         */
+
+/**********  PARAMETERS  ************/
+/*                                  */
+/* func - function to analise       */
+/* guess - first guess value        */
+/* num_iter - number of iterations  */
+
+
+iteracao(func,guess,num_iter):=(
+	block([i],
+		for i:1 thru num_iter do(
+			guess: f(guess),
+			print(float(guess))
+		)
+	)
+)$
