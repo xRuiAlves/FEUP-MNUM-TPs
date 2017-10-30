@@ -1,0 +1,22 @@
+/*           Metodo da Corda           */
+/*       Rui Alves , 28-10-2017        */
+
+/**********  PARAMETERS  ************/
+/*                                  */
+/* func - function to analise       */
+/* x1 - first x coordinate          */
+/* x2 - second x coordinate         */
+/* num_iter - number of iterations  */
+
+
+corda(func , x1 , x2, num_iter):=(
+	block([xm,i],
+		for i:1 thru num_iter do(
+			xm: (x2 - func(x2)*((x2-x1)/(func(x2)-func(x1)))),
+			if func(xm) * func(x1) > 0
+				then x1 : xm
+				else x2 : xm,
+			print(float(xm))
+		)
+	)
+)$
