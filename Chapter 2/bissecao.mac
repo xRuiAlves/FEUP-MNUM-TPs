@@ -1,0 +1,22 @@
+/*         Metodo da Bissecao          */
+/*       Rui Alves , 28-10-2017        */
+
+/********  PARAMETERS  *********/
+/*                             */
+/* func - function to analise  */
+/* x1 - first x coordinate     */
+/* x2 - second x coordinate    */
+/* lim - interval to reach     */
+
+
+bissec(func , x1 , x2, lim):=(
+	block([xm],
+		while abs(x2-x1) > lim do(
+			xm: (x1+x2)/2,
+			if func(xm) * func(x1) > 0
+				then x1 : xm
+				else x2 : xm,
+			print(float(xm))
+		)
+	)
+)$
