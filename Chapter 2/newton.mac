@@ -4,13 +4,13 @@
 /**********  PARAMETERS  ************/
 /*                                  */
 /* func - function to analise       */
+/* dfunc - function derivative      */
 /* guess - first guess value        */
 /* num_iter - number of iterations  */
 
 
-newton(func,guess,num_iter):=(
-	block([i,dfunc],
-		dfunc(x):= ''(diff(f(x),x)),
+newton(func,dfunc,guess,num_iter):=(
+	block([i],
 		for i:1 thru num_iter do(
 			guess: guess - func(guess)/dfunc(guess),
 			print(float(guess))
