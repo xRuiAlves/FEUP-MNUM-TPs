@@ -1,0 +1,24 @@
+/*      Metodo da Iteracao em Sistemas       */
+/*         Rui Alves , 30-10-2017            */
+
+/**********  PARAMETERS  ************/
+/*                                  */
+/* f1 - first function to analise   */
+/* f2 - second function to analise  */
+/* xi - first guess value           */
+/* yi - first guess value           */
+/* num_iter - number of iterations  */
+
+iteracao_sistemas(f1,f2,x0,y0,num_iter):=(
+	block([i,x,y],
+		for i:1 thru num_iter do(
+			x: f1(x0,y0),
+			y: f2(x0,y0),
+			x0: x, 
+			y0: y,
+			print(float(x0)),
+			print(float(y0)),
+			print("")
+		)
+	)
+)$
