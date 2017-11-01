@@ -11,8 +11,6 @@
 newton(func,guess,num_iter):=(
 	block([i,dfunc],
 		dfunc(x):= ''(diff(f(x),x)),
-		print(dfunc),
-		print(""),
 		for i:1 thru num_iter do(
 			guess: guess - func(guess)/dfunc(guess),
 			print(float(guess))
