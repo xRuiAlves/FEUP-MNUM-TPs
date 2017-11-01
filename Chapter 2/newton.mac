@@ -1,16 +1,18 @@
-/*           Metodo d e Newton            */
+/*            Metodo de Newton            */
 /*         Rui Alves , 30-10-2017         */
 
 /**********  PARAMETERS  ************/
 /*                                  */
 /* func - function to analise       */
-/* dfunc - function derivative      */
 /* guess - first guess value        */
 /* num_iter - number of iterations  */
 
 
-newton(func,dfunc,guess,num_iter):=(
-	block([i],
+newton(func,guess,num_iter):=(
+	block([i,dfunc],
+		dfunc(x):= ''(diff(f(x),x)),
+		print(dfunc),
+		print(""),
 		for i:1 thru num_iter do(
 			guess: guess - func(guess)/dfunc(guess),
 			print(float(guess))
