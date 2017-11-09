@@ -1,0 +1,19 @@
+/*             Metodo de Gauss            */
+/*         Rui Alves , 07-11-2017         */
+
+/********  PARAMETERS  *********/
+/*                             */
+/* matrix - matrix so solve    */
+
+
+gauss(matrix):=(
+	block([i,j],
+		for i:1 thru 3 do(
+			matrix: rowop(matrix,i,i,1-1/matrix[i][i]),		/* Set the main diagonal elements to one */
+			for j:1 thru 3 do(
+				if (i # j) then matrix: rowop(matrix,j,i,matrix[j][i])	/* Set the non-main diagonal elements to 0 based on the main diagonal pivot */
+			)
+		)
+	),
+	list_matrix_entries(col(matrix,4))
+)$
