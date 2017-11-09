@@ -6,5 +6,7 @@ Note that all the methods in this repository are implemented using Maxima - An O
 Sourceforge free download: http://maxima.sourceforge.net/download.html
 
 Most of the Implementations are based on Professor Dr. Jaime E. Villate books:
+
 Jaime E. Villate - "Métodos Numéricos" - In-Progress Book - ISBN 9789729939631
+
 Jaime E. Villate - "Introdução aos Sistemas Dinâmicos - ISBN 972-99396-0-8
