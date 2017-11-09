@@ -1,0 +1,29 @@
+/*      Metodo de Newton em Sistemas      */
+/*         Rui Alves , 30-10-2017         */
+
+/***********  PARAMETERS  **************************/
+/*                                                 */
+/* f - first function to analise                   */
+/* g - second function to analise                  */
+/* dfx - first function derivative in order to X   */
+/* dfy - first function derivative in order to Y   */
+/* dgx - second function derivative in order to X  */
+/* dgy - second function derivative in order to Y  */
+/* x0 - first X guess value                        */
+/* y0 - first Y guess value                        */
+/* num_iter - number of iterations                 */
+
+
+newton_sistemas(f , g , dfx , dfy , dgx , dgy , x0 , y0 , num_iter):=(
+	block([i,x,y],
+	for i:1 thru num_iter do(
+		x: x0 - (f(x0,y0)*dgy(x0,y0)-g(x0,y0)*dfy(x0,y0))/(dfx(x0,y0)*dgy(x0,y0)-dgx(x0,y0)*dfy(x0,y0)),
+		y: y0 - (g(x0,y0)*dfx(x0,y0)-f(x0,y0)*dgx(x0,y0))/(dfx(x0,y0)*dgy(x0,y0)-dgx(x0,y0)*dfy(x0,y0)),
+		x0: x, 
+		y0: y,
+		print(float(x0)),
+		print(float(y0)),
+		print("")
+	)
+	)
+)$
