@@ -9,11 +9,14 @@
 gauss(matrix):=(
 	block([i,j],
 		for i:1 thru 3 do(
-			matrix: rowop(matrix,i,i,1-1/matrix[i][i]),		/* Set the main diagonal elements to one */
+			/* Set the main diagonal elements to one */
+			matrix: rowop(matrix,i,i,1-1/matrix[i][i]),
 			for j:1 thru 3 do(
-				if (i # j) then matrix: rowop(matrix,j,i,matrix[j][i])	/* Set the non-main diagonal elements to 0 based on the main diagonal pivot */
+				/* Set the non-main diagonal elements to 0 based on the main diagonal pivot */
+				if (i # j) then matrix: rowop(matrix,j,i,matrix[j][i])
 			)
 		)
 	),
+	/* Return a list with the solutions */
 	list_matrix_entries(col(matrix,4))
 )$
