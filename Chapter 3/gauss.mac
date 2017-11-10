@@ -7,16 +7,19 @@
 
 
 gauss(matrix):=(
-	block([i,j],
-		for i:1 thru 3 do(
+	block([i,j,len],
+		/* Get the number of rows in the Matrix */
+		len: length(matrix),
+		for i:1 thru len do(
 			/* Set the main diagonal elements to one */
 			matrix: rowop(matrix,i,i,1-1/matrix[i][i]),
-			for j:1 thru 3 do(
+			for j:1 thru len do(
 				/* Set the non-main diagonal elements to 0 based on the main diagonal pivot */
 				if (i # j) then matrix: rowop(matrix,j,i,matrix[j][i])
 			)
-		)
-	),
-	/* Return a list with the solutions */
-	list_matrix_entries(col(matrix,4))
+		),
+		/* Return a list with the solutions */
+		list_matrix_entries(col(matrix,len+1))
+	)
+	
 )$
