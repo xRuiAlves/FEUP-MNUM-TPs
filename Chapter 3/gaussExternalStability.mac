@@ -1,0 +1,45 @@
+/*       Metodo de Gauss - Estabilidade Externa      */
+/*             Rui Alves , 07-11-2017                */
+
+/******************  PARAMETERS  ********************/
+/*                                                  */
+/* m - matrix so solve                              */
+
+
+gaussExternalStability(m):=(
+	block([i,j,len,DA,DB,X,auxMatrix],
+		/* Get the number of rows in the Matrix */
+		len: length(m),
+
+		/* Get X matrix */
+		auxMatrix:m,
+		for i:1 thru len do(
+			/* Set the main diagonal elements to one */
+			auxMatrix: rowop(auxMatrix,i,i,1-1/auxMatrix[i][i]),
+			for j:1 thru len do(
+				/* Set the non-main diagonal elements to 0 based on the main diagonal pivot */
+				if (i # j) then auxMatrix: rowop(auxMatrix,j,i,auxMatrix[j][i])
+			)
+		),
+		X: col(auxMatrix,len+1),
+		
+		/* Remove the 'B' column from matrix m */
+		m: transpose(matrix(list_matrix_entries(transpose(col(m,1))),list_matrix_entries(transpose(col(m,2))),list_matrix_entries(transpose(col(m,3))))),
+
+		/* Get DB-DA.X */
+		DA: matrix([da,da,da],[da,da,da],[da,da,da]),
+		DB: matrix([db],[db],[db]),
+		m: addcol(m,(DB-DA.X)),
+		for i:1 thru len do(
+			/* Set the main diagonal elements to one */
+			m: rowop(m,i,i,1-1/m[i][i]),
+			for j:1 thru len do(
+				/* Set the non-main diagonal elements to 0 based on the main diagonal pivot */
+				if (i # j) then m: rowop(m,j,i,m[j][i])
+			)
+		),
+		/* Return a list with the solutions */
+		ratsimp(list_matrix_entries(col(m,len+1)))
+	)
+	
+)$
