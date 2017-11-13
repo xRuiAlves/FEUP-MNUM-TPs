@@ -14,3 +14,7 @@ Most of the Implementations are based on Professor Dr. Jaime E. Villate books:
 Jaime E. Villate - "Métodos Numéricos" - In-Progress Book - ISBN 9789729939631
 
 Jaime E. Villate - "Introdução aos Sistemas Dinâmicos - ISBN 972-99396-0-8
+
+
+
+EDIT: I decided to also post implementations using C++ programming, in order to make the repository more complete and to contain different approaches to same problem in different programming languages.
