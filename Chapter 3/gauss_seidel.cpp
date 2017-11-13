@@ -27,7 +27,7 @@ int main(){
 
 		std::cout << "**********  Iteracao no. " << i+1 << "  **********\n";
 		std::cout << "[ " << x1 << '\t' << x2 << '\t' << x3 << '\t' << x4 << " ]" << std::endl;
-		std::cout <<"Residuo: " << modulo_residuo(101-(95*x1+3*x2+1*x3+2*x4), 119-(4*x1+100*x2+10*x3+5*x4) ,72-(3*x1+9*x2+55*x3+5*x4) , 96-(10*x1+2*x2+4*x3+80*x4)) << "\n\n";
+		std::cout <<"Residuo: " << modulo_residuo(matrix[0][4]-(matrix[0][0]*x1+matrix[0][1]*x2+matrix[0][2]*x3+matrix[0][3]*x4), matrix[1][4]-(matrix[1][0]*x1+matrix[1][1]*x2+matrix[1][2]*x3+matrix[1][3]*x4) , matrix[2][4]-(matrix[2][0]*x1+matrix[2][1]*x2+matrix[2][2]*x3+matrix[2][3]*x4) , matrix[3][4]-(matrix[3][0]*x1+matrix[3][1]*x2+matrix[3][2]*x3+matrix[3][3]*x4)) << "\n\n";
 	}
 
 	std::cout << "\n";
