@@ -32,9 +32,9 @@ int main(){
 
 	Is += values.at(0);			// y0
 
-	Is += values.at(n);	// yn
+	Is += values.at(n);			// yn
 
-	Is += Is_odds + Is_evens;	// y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn
+	Is += Is_odds + Is_evens;		// y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn
 
 	Is = Is*h/3;				// h/3 * (y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn)
 
