@@ -32,8 +32,12 @@ int main(){
 	/* Integrate f(x,y) between [a , A] in the Y axis and [b , B] in the X axis */
 	const double hx = 0.5;
 	const double hy = 0.5;
-	const unsigned int nx = 4;		// The integration limits are [0 .. nx*hx] : In this case, integrating foo(x,y) from 0 to 2 in x axis
-	const unsigned int ny = 4;		// The integration limits are [0 .. ny*hy] : In this case, integrating foo(x,y) from 0 to 2 in y axis
+	const double a = 0;
+	const double A = 2;
+	const double b = 0;
+	const double B = 2;
+	const unsigned int nx = (A-a)/hx;		// The integration limits are [0 .. nx*hx] : In this case, integrating foo(x,y) from 0 to 2 in x axis
+	const unsigned int ny = (B-b)/hy;		// The integration limits are [0 .. ny*hy] : In this case, integrating foo(x,y) from 0 to 2 in y axis
 
 	/* Make the list */
 	std::vector< std::vector<double> > values;
@@ -42,7 +46,7 @@ int main(){
 	for (unsigned int j=0 ; j<(ny+1) ; j++){
 		row.clear();
 		for (unsigned int i=0 ; i<(nx+1) ; i++){
-			row.push_back(foo(i*hx , j*hy));
+			row.push_back(foo(a+i*hx , b+j*hy));
 		}
 		values.push_back(row);
 	}
