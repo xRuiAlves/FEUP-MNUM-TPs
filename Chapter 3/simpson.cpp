@@ -24,7 +24,7 @@ int main(){
 
 	for (unsigned int i=1 ; i<n ; i+=2)	Is_odds += values.at(i);	// The odd terms , the 4*y.. terms
 
-	for (unsigned int i=2 ; i<n ; i+=2)	Is_evens += values.at(i);	// The odd terms , the 4*y.. terms
+	for (unsigned int i=2 ; i<n ; i+=2)	Is_evens += values.at(i);	// The even terms , the 2*y.. terms
 
 	Is_odds *= 4;				// 4*(odd terms)
 
