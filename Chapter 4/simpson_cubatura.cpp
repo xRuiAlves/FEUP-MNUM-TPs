@@ -1,66 +1,73 @@
-#include <iostream>
+/************************************************
+
+	In this example, I am integrating the function
+	x * y beetween y=3 and y=8 and between x=4 and x=12.
+	Even tho I am using a relatively low step for both
+	X and Y directions (hA = hB = 0.5) , I got the value
+	1760. The analitical values is also 1760, the result
+	was exact!
+
+*************************************************/
+
+
 #include <vector>
+#include <iostream>
 
-double foo(double x , double y) { return (x*y); }
 
-double simpson(const std::vector<double> v, double h){
-	/* Compute the Integral Value */
-	double Is = 0, Is_odds = 0, Is_evens = 0;
-	double n = v.size()-1;
+double foo ( double x , double y ) { return (x*y); }
 
-	for (unsigned int i=1 ; i<n ; i+=2)	Is_odds += v.at(i);	// The odd terms , the 4*y.. terms
+double simpson(std::vector<double> points , double h) {
+	double i_odds = 0;
+	double i_evens = 0;
+	double integral = 0;
 
-	for (unsigned int i=2 ; i<n ; i+=2)	Is_evens += v.at(i);	// The odd terms , the 4*y.. terms
+	// Compute the odds
+	for (unsigned int i=1 ; i<points.size()-1 ; i+=2){
+		i_odds += points.at(i);
+	}
 
-	Is_odds *= 4;				// 4*(odd terms)
+	// Computhe the evens
+	for (unsigned int i=2 ; i<points.size()-1 ; i+=2){
+		i_evens += points.at(i);
+	}
 
-	Is_evens *= 2;				// 2*(even terms)
+	i_odds *= 4;	// Odd terms have coeficient 4
+	i_evens *= 2;	// Even terms have coeficient 2 (except y0 and yn)
+	integral += i_odds + i_evens;
 
-	Is += v.at(0);				// y0
+	integral += points.at(0);	// y0
+	integral += points.at(points.size()-1);	// yn
 
-	Is += v.at(n);				// yn
+	integral *= h/3;	// I = h/3 * (y0 + 4y1 + 2y2 + 4y3 + ... + 4y(n-3) + 2y(n-2) + 4y(n-1) + y(n) )
 
-	Is += Is_odds + Is_evens;	// y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn
-
-	Is = Is*h/3;				// h/3 * (y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn)
-
-	return Is;
+	return integral;
 }
 
 int main(){
 
-	/* Integrate f(x,y) between [a , A] in the Y axis and [b , B] in the X axis */
-	const double hx = 0.5;
-	const double hy = 0.5;
-	const double a = 0;
-	const double A = 2;
-	const double b = 0;
-	const double B = 2;
-	const unsigned int nx = (A-a)/hx;		// The integration limits are [0 .. nx*hx] : In this case, integrating foo(x,y) from 0 to 2 in x axis
-	const unsigned int ny = (B-b)/hy;		// The integration limits are [0 .. ny*hy] : In this case, integrating foo(x,y) from 0 to 2 in y axis
+	const double a = 3;
+	const double A = 8;
+	const double b = 4;
+	const double B = 12;
+	const double hA = 0.5;
+	const double hB = 0.5;
+	const unsigned int nA = (A-a)/hA;
+	const unsigned int nB = (B-b)/hB;
 
-	/* Make the list */
-	std::vector< std::vector<double> > values;
+
+	// Apply the Simpson's method to every row of the integration "square", and save the results in a vector
+	std::vector<double> simpson_averages;
 	std::vector<double> row;
-
-	for (unsigned int j=0 ; j<(ny+1) ; j++){
+	for(unsigned int i=0 ; i<=nA ; i++){
 		row.clear();
-		for (unsigned int i=0 ; i<(nx+1) ; i++){
-			row.push_back(foo(a+i*hx , b+j*hy));
+		for(unsigned int j=0 ; j<=nB ; j++){
+			row.push_back(foo (a + i*hA , b + j*hB));
 		}
-		values.push_back(row);
+		simpson_averages.push_back(simpson(row, hB));
 	}
 
-	/* Apply the simpson's method to each row */
-	std::vector<double> rows_averages;
-
-	for(unsigned int j=0 ; j<values.size() ; j++){
-		rows_averages.push_back(simpson(values.at(j),hx));
-	}
-
-	/* Apply the simpson's method to the row's averages, thus making the "cubatura" */
-	std::cout << "Result: " << simpson(rows_averages, hy);
-
+	// Apply the Simpson's method to the averages vector, thus completing the double integration
+	std::cout << simpson(simpson_averages , hA);
 
 	return 0;
 }
