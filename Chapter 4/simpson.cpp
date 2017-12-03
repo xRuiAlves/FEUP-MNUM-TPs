@@ -1,48 +1,62 @@
-#include <iostream>
-#include <vector>
+/*******************************************************
 
-double foo(double x) { return (x*x*x*x); }
+ In this example i am integrating x^4 between values
+ 5 and 10. With a step equal to 0.5 , i got the value
+ 19375 for the integral. The analitacal solution is ...
+ ... 19375!
 
-int main(){
+ This method works very well, because it doesn't
+ have a harder calculation than the "Trapezio" method. Allthough,
+ Trapezio is a 2nd order method and Simpson is a 4th order method.
+ This means that, with Simpson's method, if we reduce the step (h)
+ to half, we are lowering the absolute error 2^order = 2^4 = 16 times!
 
-	/* Integrate f(x) between 0 and 2 */
-	const double h = 0.5;
-	const unsigned int n = 4;		// The integration limits are [0 .. n*h] : In this case, integrating foo(x) from 0 to 2
+*******************************************************/
 
-	/* Make the list */
-	std::vector<double> values;
-
-	for (unsigned int i=0 ; i<(n+1) ; i++){
-		values.push_back(foo(i*h));
-	}
-
-
-	/* Compute the Integral Value */
-	double Is = 0, Is_odds = 0, Is_evens = 0;
-
-
-
-	for (unsigned int i=1 ; i<n ; i+=2)	Is_odds += values.at(i);	// The odd terms , the 4*y.. terms
-
-	for (unsigned int i=2 ; i<n ; i+=2)	Is_evens += values.at(i);	// The even terms , the 2*y.. terms
-
-	Is_odds *= 4;				// 4*(odd terms)
-
-	Is_evens *= 2;				// 2*(even terms)
-
-	Is += values.at(0);			// y0
-
-	Is += values.at(n);			// yn
-
-	Is += Is_odds + Is_evens;		// y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn
-
-	Is = Is*h/3;				// h/3 * (y0 + 4*y1 + 2*y2 + ... + 2*y(n-2) + 4*y(n-1) + yn)
-
-
-	/* Display the Result */
-	std::cout << "Result: " << Is;
-
-
-
-	return 0;
-}
+//#include <vector>
+//#include <iostream>
+//
+//
+//double foo ( double x ) { return (x*x*x*x); }
+//
+//int main(){
+//
+//	const double a = 5;
+//	const double b = 10;
+//	const double h = 0.5;
+//	const unsigned int n = (b-a)/h;
+//
+//	double i_odds = 0;
+//	double i_evens = 0;
+//	double integral = 0;
+//
+//	// Make the list
+//	std::vector<double> values;
+//
+//	for (unsigned int i=0 ; i<=n ; i++){
+//		values.push_back(foo(a + i*h));
+//	}
+//
+//	// Compute the odds
+//	for (unsigned int i=1 ; i<n ; i+=2){
+//		i_odds += values.at(i);
+//	}
+//
+//	// Computhe the evens
+//	for (unsigned int i=2 ; i<n ; i+=2){
+//		i_evens += values.at(i);
+//	}
+//
+//	i_odds *= 4;	// Odd terms have coeficient 4
+//	i_evens *= 2;	// Even terms have coeficient 2 (except y0 and yn)
+//	integral += i_odds + i_evens;
+//
+//	integral += values.at(0);	// y0
+//	integral += values.at(n);	// yn
+//
+//	integral *= h/3;	// I = h/3 * (y0 + 4y1 + 2y2 + 4y3 + ... + 4y(n-3) + 2y(n-2) + 4y(n-1) + y(n) )
+//
+//	std::cout << integral;
+//
+//	return 0;
+//}
