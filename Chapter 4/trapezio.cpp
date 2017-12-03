@@ -1,40 +1,57 @@
+/*******************************************************
+
+ In this example i am integrating x^2 between values
+ 4 and 10. With a step equal to 0.1 , i got the value
+ 312.01 for the integral. The analitacal solution is 312.
+ The error was very small ( 0.01 ) because i am using a very
+ low step!
+
+ This method works fine, but Simpson's method works better,
+ without harder calculations associated. This method is a 2nd
+ order method: When we lower the step by half , the error will
+ be reduced by 2^order = 2^2 = 4 times! This is good, but Simpson's
+ method, being 4th order, diminishes the error by 16 times by lowering
+ the step with the same amount, without more work. That being said,
+ Simpson's method is highly prefered!!
+
+*******************************************************/
+
 #include <iostream>
 #include <vector>
 
-double foo(double x) { return x; }
+using namespace std;
+
+double foo(double x) { return (x*x); }
 
 int main(){
 
-	/* Integrate f(x) between 0 and 2 */
-	const double h = 0.5;
-	const unsigned int n = 4;		// The integration limits are [0 .. n*h] : In this case, integrating foo(x) from 0 to 2
+	const double a = 4;
+	const double b = 10;
+	const double h = 0.1;
+	const unsigned int n = (b-a)/h;
 
-	/* Make the list */
-	std::vector<double> values;
+	double integral = 0;
 
-	for (unsigned int i=0 ; i<(n+1) ; i++){		// n intervals  -->  n+1 values
-		values.push_back(foo(i*h));
+	// Make the list
+	vector<double> values;
+	for (double i = 0; i <= n ; i++){
+		values.push_back(foo(a + i*h));
 	}
 
 
-	/* Compute the Integral Value */
-	double It = 0;
+	// Compute the middle terms (all except y0 and yn)
+	for (unsigned int i=1 ; i<n ; i++){
+		integral += values[i];
+	}
 
-	for (unsigned int i=1 ; i<n ; i++)	It += values.at(i);	// (y1 ... y(n-1))
+	integral *= 2; 	// The middle terms have coeficient 2
 
-	It *= 2;					// 2*(y1 ... y(n-1))
+	integral += values[0];	// y0
+	integral += values[n];	// yn
 
-	It += values.at(0);			// y0
+	integral *= h/2;		// I = h/2 * (y0 + 2y1 + 2y2 + ... + 2y(n-1) + y(n) )
 
-	It += values.at(n);			// yn
-
-	It = h/2 * It;				// h/2*(y0 + y1 + ... + yn)
-
-
-	/* Display the Result */
-	std::cout << "Result: " << It;
-
-
+	cout << integral << endl;
 
 	return 0;
 }
