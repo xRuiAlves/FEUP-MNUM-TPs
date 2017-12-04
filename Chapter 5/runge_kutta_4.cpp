@@ -46,8 +46,8 @@ int main(){
 		/* Compute the increments */
 		d1 = step*foo(x,y);
 		d2 = step*foo(x+step/2 , y + d1/2);
-		d3 = step*foo(x*step/2 , y + d2/2);
-		d4 = step*foo(x*step , y + d3);
+		d3 = step*foo(x+step/2 , y + d2/2);
+		d4 = step*foo(x+step , y + d3);
 
 		/* Compute the new X and the new Y */
 		y = y + (d1/6 + d2/3 + d3/3 + d4/6);
