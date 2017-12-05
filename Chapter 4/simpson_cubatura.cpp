@@ -61,7 +61,7 @@ int main(){
 	for(unsigned int i=0 ; i<=nA ; i++){
 		row.clear();
 		for(unsigned int j=0 ; j<=nB ; j++){
-			row.push_back(foo (a + i*hA , b + j*hB));
+			row.push_back(foo (b + j*hB , a + i*hA));
 		}
 		simpson_averages.push_back(simpson(row, hB));
 	}
