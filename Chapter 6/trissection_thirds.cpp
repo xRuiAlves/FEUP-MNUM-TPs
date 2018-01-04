@@ -1,0 +1,88 @@
+/*
+ * trissection_thirds.cpp
+ *
+ *  Created on: 04/01/2018
+ *      Author: Rui Alves
+ */
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double f(double x) { return ( (x+2)*(x+2) - 5) ; }		// f(x) = (x+2)^2 - 5
+
+/***
+
+  Trissection Method
+
+  a0 - Interval's left extreme
+  b0 - Interval's right extreme
+  final_interval - Interval b-a to reach : termination condition
+
+ ***/
+pair<double,double> trissection(double a0, double b0, double final_interval){
+	// Initial values
+	double x1 = a0;
+	double x2 = b0;
+	double x3;
+	double x4;
+	unsigned int iterations_counter = 0;;
+
+	cout << iterations_counter << ":\t" << x1 << "\t" << x2 << "\t" << abs(x2-x1) << endl;
+
+	// Loop until final interval is reached
+	while(abs(x2-x1) > final_interval){
+		x3 = x1 +   (abs(x2-x1)/3);
+		x4 = x1 + 2*(abs(x2-x1)/3);
+
+		// Decide which extreme changes
+		if (f(x4) < f(x3))
+			x1 = x3;
+		else
+			x2 = x4;
+
+		// Print current values
+		iterations_counter ++;
+		cout << iterations_counter << ":\t" << x1 << "\t" << x4 << "\t" << abs(x2-x1) << endl;
+	}
+
+	// Return the final interval that was reached
+	return make_pair(x1,x2);
+}
+
+/* Makes a Quadratic Interpolation Adjustment */
+double quadratic_interpolation(double a , double b){
+	double m = (a+b)/2;		// Compute the middle point
+	double h = (b-a)/2;		// Compute the interval
+
+	// Compute the function values in the three points
+	double f1 = f(a);
+	double f2 = f(m);
+	double f3 = f(b);
+
+	// Perform the interpolation
+	double result = m + (h * (f1 - f3))/(2 * (f3 - 2*f2 + f1));
+
+	return result;
+}
+
+
+int main(){
+	// Set printing precision
+	cout << fixed;
+	cout.precision(6);
+
+	// Values
+	const double a0 = -10000;
+	const double b0 = 8937;
+
+	// Call the method
+	pair<double,double> mininum_int = trissection(a0,b0,0.01);
+	cout << "\nLeft interval extreme:  " << mininum_int.first  << endl;
+	cout << "Right interval extreme: " << mininum_int.second << endl;
+
+	cout << "\nMinimum value (after applying quadratic interpolation: " << quadratic_interpolation(mininum_int.first , mininum_int.second) << endl;
+
+	return 0;
+}
