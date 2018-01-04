@@ -32,7 +32,7 @@ pair<double,double> trissection(double a0, double b0, double final_interval){
 	double x2 = b0;
 	double x3 = x1 + A*(x2-x1);
 	double x4 = x1 + B*(x2-x1);
-	unsigned int iterations_counter = 0;;
+	unsigned int iterations_counter = 0;
 
 	cout << iterations_counter << ":\t" << x1 << "\t" << x2 << "\t" << abs(x2-x1) << endl;
 
