@@ -47,7 +47,7 @@ void newton(double x0 , double y0 , unsigned int num_iter){
 	for(unsigned int i=1 ; i <= num_iter ; i++){
 		jacobian = df1x(x,y)*df2y(x,y) - df2x(x,y)*df1y(x,y);
 		xn = x - (f1(x,y)*df2y(x,y) - f2(x,y)*df1y(x,y)) / jacobian;
-		yn = y - (f2(x,y)*df1x(x,y) - f1(x,y)*df1y(x,y)) / jacobian;
+		yn = y - (f2(x,y)*df1x(x,y) - f1(x,y)*df2x(x,y)) / jacobian;
 
 		// Update the variables
 		x = xn;
